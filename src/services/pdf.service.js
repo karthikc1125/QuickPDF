@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, degrees, StandardFonts } from "pdf-lib";
+import { PDFDocument, rgb, degrees, StandardFonts, PDFName, PDFRawStream, decodePDFRawStream } from "pdf-lib";
 
 
 // merging multiple PDFs into one
@@ -143,4 +143,30 @@ export const imageToPdf = async (files) => {
 
   const pdfBytes = await pdfDoc.save();
   return new Blob([pdfBytes], { type: "application/pdf" });
+};
+
+export const compressLargePdf = async (file) => {
+  const arrayBuffer = await file.arrayBuffer();
+  
+  // Load the document with 'ignoreEncryption' to bypass permission locks
+  const pdfDoc = await PDFDocument.load(arrayBuffer, { 
+    ignoreEncryption: true,
+    // Using a smaller byte range helps prevent browser hangs on 100MB+ files
+    capNumbers: true 
+  });
+  
+  // Create a brand new document to force a complete re-index of the data
+  const compressedDoc = await PDFDocument.create();
+  const copiedPages = await compressedDoc.copyPages(pdfDoc, pdfDoc.getPageIndices());
+  copiedPages.forEach(page => compressedDoc.addPage(page));
+
+  // The 'useObjectStreams' flag is the secret for large files. 
+  // It zips thousands of tiny PDF objects into a few large binary chunks.
+  const compressedBytes = await compressedDoc.save({
+    useObjectStreams: true,
+    addDefaultPage: false,
+    updateFieldAppearances: false
+  });
+
+  return new Blob([compressedBytes], { type: 'application/pdf' });
 };
