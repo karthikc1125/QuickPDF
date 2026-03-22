@@ -2,7 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { PageContainer } from './components/layout/PageContainer';
-import { AnimatedBackground } from './components/ui/AnimatedBackground'; // <-- Import the background
+import { AnimatedBackground } from './components/ui/AnimatedBackground'; 
+import { Watermark } from './pages/Watermark/Watermark';
 
 // pages
 import { Home } from './pages/Home/Home'; 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/merge" element={<Merge />} />
             <Route path="/split" element={<Split />} />
+            <Route path="/watermark" element={<Watermark />} />
           </Routes>
         </PageContainer>
       </div>

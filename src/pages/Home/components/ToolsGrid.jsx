@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layers, SplitSquareHorizontal } from 'lucide-react';
+import { Layers, SplitSquareHorizontal, Stamp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function ToolsGrid() {
@@ -10,18 +10,12 @@ export function ToolsGrid() {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto mb-32">
+    <div className="grid md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto mb-32">
       
-      <motion.div 
-        variants={cardVariants} 
-        initial="hidden" 
-        whileInView="visible" 
-        viewport={{ once: true, margin: "-50px" }}
-      >
+      {/* 1. Merge Card */}
+      <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
         <Link to="/merge" className="group flex flex-col p-8 bg-[#0a0a0a] border border-white/10 rounded-3xl hover:border-white/30 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.03)] transition-all duration-500 text-left h-full relative overflow-hidden">
-          {/* Subtle hover gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
           <div className="relative z-10 w-14 h-14 border border-white/10 bg-zinc-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500">
             <Layers className="w-6 h-6" />
           </div>
@@ -35,16 +29,10 @@ export function ToolsGrid() {
         </Link>
       </motion.div>
 
-      <motion.div 
-        variants={cardVariants} 
-        initial="hidden" 
-        whileInView="visible" 
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ delay: 0.1 }} // Slight delay so the right card loads after the left
-      >
+      {/* 2. Split Card */}
+      <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} transition={{ delay: 0.1 }}>
         <Link to="/split" className="group flex flex-col p-8 bg-[#0a0a0a] border border-white/10 rounded-3xl hover:border-white/30 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.03)] transition-all duration-500 text-left h-full relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
           <div className="relative z-10 w-14 h-14 border border-white/10 bg-zinc-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500">
             <SplitSquareHorizontal className="w-6 h-6" />
           </div>
@@ -54,6 +42,23 @@ export function ToolsGrid() {
           </p>
           <div className="relative z-10 flex items-center text-sm font-medium text-white group-hover:translate-x-2 transition-transform duration-300">
             Open Split Tool <span className="ml-2">→</span>
+          </div>
+        </Link>
+      </motion.div>
+
+      {/* 3. Watermark Card */}
+      <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} transition={{ delay: 0.2 }}>
+        <Link to="/watermark" className="group flex flex-col p-8 bg-[#0a0a0a] border border-white/10 rounded-3xl hover:border-white/30 hover:bg-white/[0.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.03)] transition-all duration-500 text-left h-full relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative z-10 w-14 h-14 border border-white/10 bg-zinc-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500">
+            <Stamp className="w-6 h-6" />
+          </div>
+          <h2 className="relative z-10 text-2xl font-semibold text-white mb-3 tracking-tight">Add Watermark</h2>
+          <p className="relative z-10 text-zinc-400 mb-8 font-light flex-grow leading-relaxed">
+            Stamp custom text diagonally across your documents. Perfect for sensitive drafts and contracts.
+          </p>
+          <div className="relative z-10 flex items-center text-sm font-medium text-white group-hover:translate-x-2 transition-transform duration-300">
+            Open Watermark Tool <span className="ml-2">→</span>
           </div>
         </Link>
       </motion.div>
