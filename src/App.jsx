@@ -1,16 +1,16 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/layout/Navbar';
-import { PageContainer } from './components/layout/PageContainer';
-import { AnimatedBackground } from './components/ui/AnimatedBackground'; 
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/layout/Navbar";
+import { PageContainer } from "./components/layout/PageContainer";
+import { AnimatedBackground } from "./components/ui/AnimatedBackground";
 
 // pages
-import { Home } from './pages/Home/Home'; 
-import { Merge } from './pages/Merge/Merge';
-import { Split } from './pages/Split/Split';
-import { Watermark } from './pages/Watermark/Watermark';
-import { ImageToPdf } from './pages/ImageToPdf/ImageToPdf';
-import { Compress } from './pages/Compress/Compress';
+import { Home } from "./pages/Home/Home";
+import { Merge } from "./pages/Merge/Merge";
+import { Split } from "./pages/Split/Split";
+import { Watermark } from "./pages/Watermark/Watermark";
+import { ImageToPdf } from "./pages/ImageToPdf/ImageToPdf";
+import { Compress } from "./pages/Compress/Compress";
 
 function App() {
   return (
@@ -29,7 +29,6 @@ function App() {
           </Routes>
         </PageContainer>
       </div>
-      
     </div>
   );
 }

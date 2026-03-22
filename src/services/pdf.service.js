@@ -1,5 +1,10 @@
-import { PDFDocument, rgb, degrees, StandardFonts, PDFName, PDFRawStream, decodePDFRawStream } from "pdf-lib";
-
+import {
+  PDFDocument,
+  rgb,
+  degrees,
+  StandardFonts,
+} from "pdf-lib";
+import * as pdfjsLib from 'pdfjs-dist';
 
 // merging multiple PDFs into one
 export const mergePdfs = async (files) => {
@@ -69,7 +74,6 @@ export const getPdfPageCount = async (file) => {
   return pdf.getPageCount();
 };
 
-
 // adding a diagonal watermark to each page of a PDF
 export const addWatermark = async (file, watermarkText = "CONFIDENTIAL") => {
   if (!file) throw new Error("Please provide a PDF file.");
@@ -123,7 +127,9 @@ export const imageToPdf = async (files) => {
     } else if (file.type === "image/png") {
       embeddedImage = await pdfDoc.embedPng(arrayBuffer);
     } else {
-      throw new Error(`Unsupported file type: ${file.type}. Please use JPG or PNG.`);
+      throw new Error(
+        `Unsupported file type: ${file.type}. Please use JPG or PNG.`,
+      );
     }
 
     // Extract precise dimensions
@@ -145,7 +151,9 @@ export const imageToPdf = async (files) => {
   return new Blob([pdfBytes], { type: "application/pdf" });
 };
 
-export const compressLargePdf = async (file) => {
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+export const compressWithQuality = async (file, quality = 0.5) => {
   const arrayBuffer = await file.arrayBuffer();
   
   // Load the document with 'ignoreEncryption' to bypass permission locks
@@ -170,3 +178,4 @@ export const compressLargePdf = async (file) => {
 
   return new Blob([compressedBytes], { type: 'application/pdf' });
 };
+
