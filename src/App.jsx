@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { Navbar } from "./components/layout/Navbar";
 import { PageContainer } from "./components/layout/PageContainer";
 import { AnimatedBackground } from "./components/ui/AnimatedBackground";
@@ -37,6 +38,7 @@ function App() {
           </Routes>
         </PageContainer>
       </div>
+      <Analytics />
     </div>
   );
 }
